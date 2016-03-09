@@ -1,3 +1,6 @@
+"""
+    Utility file to populate the DB with some values
+"""
 import sqlite3
 import config
 
