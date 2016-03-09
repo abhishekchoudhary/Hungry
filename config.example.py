@@ -1,3 +1,6 @@
+"""
+    Apply relevant changes to this file, and rename as config.py
+"""
 import os
 
 # Define if the application is running in debug mode
