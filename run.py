@@ -1,3 +1,7 @@
+"""
+    Application entry point
+"""
+
 from app import app
 import config
 
