@@ -2,10 +2,12 @@ import wrappers
 
 class Order:
     _exists = False
-    __TRACKED_FIELDS = ["customer_id", "status"]
+    __TRACKED_FIELDS = ["customer_id", "status_track"]
     __IMMUTABLE_FIELDS = ["created_at", "updated_at"]
 
     def __init__(self, order_id):
+        if order_id is None:
+            return
         db = wrappers.SQLite.init()
         cursor = db.cursor()
         fields = ', '.join(self.__TRACKED_FIELDS + self.__IMMUTABLE_FIELDS)
@@ -73,7 +75,7 @@ class Order:
             """
         else:
             update_params = wrappers.SQLite.get_update_params(self.__TRACKED_FIELDS)
-            a_query = " UPDATE orders SET " + update_params + " WHERE id=:id"
+            a_query = " UPDATE orders SET " + update_params + " WHERE id=:order_id"
             storage_id = self.id
 
         try:
@@ -81,13 +83,12 @@ class Order:
             storage_id = cursor.lastrowid
             if not create_new:
                 storage_id = self.id
-                cursor.execute("DELETE FROM orders_items WHERE order_id = :order_id", {'order_id': item_id})
+                cursor.execute("DELETE FROM orders_items WHERE order_id = :order_id", {'order_id': storage_id})
 
             order_item_query = "INSERT INTO orders_items (order_id, item_id) VALUES (:order_id, :item_id)"
-            items = map(int, self.items.split(','))
 
-            for an_item in items:
-                cursor.execute(order_item_query, {'order_id': self.id, 'item_id': an_item})
+            for an_item in self.items:
+                cursor.execute(order_item_query, {'order_id': storage_id, 'item_id': an_item})
         except Exception, e:
             print e
             storage_id = None

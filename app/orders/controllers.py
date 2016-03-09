@@ -36,9 +36,10 @@ def fetch(order_id):
     response = modules.order.fetch(order_id, g.incoming)
     return respond(response)
 
-@api.route('/keep/<order_id>', methods=['GET'])
+@api.route('/keep/', methods=['POST'])
+@api.route('/keep/<order_id>', methods=['POST'])
 @crossdomain(origin='*')
-def keep():
+def keep(order_id=None):
     response = modules.order.keep(order_id, g.incoming)
     return respond(response)
 

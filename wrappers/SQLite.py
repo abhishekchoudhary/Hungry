@@ -7,6 +7,9 @@ import config
 
 def init():
     connection = sqlite3.connect(config.DATABASE_LOC)
+    cursor = connection.cursor()
+    cursor.execute('PRAGMA foreign_keys=ON')
+    connection.commit()
     return connection
 
 def get_update_params(args_list):

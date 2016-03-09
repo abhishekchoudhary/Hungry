@@ -13,12 +13,11 @@ def fetch(order_id, incoming):
 
     return response
 
-def keep(order_id, incoming, incoming_files):
+def keep(order_id, incoming):
     response = {}
 
     an_order = Order(order_id=order_id)
     an_order.consume(incoming)
-
     saved_id = an_order.save()
 
     if saved_id is None:
