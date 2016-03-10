@@ -16,8 +16,6 @@ def fetch(item_id, incoming):
 def rain(incoming):
     response = {}
     filters = {}
-    if 'status' in incoming:
-        filters['status']  = incoming['status']
     all_item_ids = enumerate_table('items', filters)
 
     if len(all_item_ids) == 0:

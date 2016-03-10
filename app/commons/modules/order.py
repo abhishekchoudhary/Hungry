@@ -35,7 +35,7 @@ def rain(incoming):
     response = {}
     filters = {}
     if 'status' in incoming:
-        filters['status']  = incoming['status']
+        filters['status_track']  = incoming['status']
     all_order_ids = enumerate_table('orders', filters)
 
     if len(all_order_ids) == 0:
