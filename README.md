@@ -19,7 +19,7 @@ Gets a list of all orders present. Can be filtered by status using 'status' in a
 ######Keep
  - `__SERVER__/order/keep`
  - `__SERVER__/order/keep/<order_id>`
-Invoke without order ID to save a new order, with order ID to update existing. Only need supply the changed parameters in the API if updating existing records.
+Invoke without order ID to save a new order, with order ID to update existing. Only need supply the changed parameters in the API if updating existing records. Takes `customer_id`, `items`, `status_track` as parameters. `customer_id` should exist beforehand (foreign key with `customers` table), `items` is a comma-separated list of item IDs in the menu, and `status_track` is the status of the order.
 
 ####The Food Item API
 ######Fetch
